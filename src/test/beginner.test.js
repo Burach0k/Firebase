@@ -1,11 +1,14 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import App from '../components/App';
+
+import ReactDOM from 'react-dom';
 
 /* global  it expect :true */
 /* eslint no-undef: "error" */
 
-it('renders correctly', () => {
-  const tree = renderer.create(<App />).toJSON();
-  expect(tree).toMatchSnapshot();
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
 });
