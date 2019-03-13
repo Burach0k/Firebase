@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Post from './controlls/Post/Post';
-import firebase from './firebase'
+import Authorization from './controlls/Authorization/Authorization'
 
 let itemList = [
   {
@@ -36,6 +36,7 @@ let itemList = [
 ];
 const App = () => (
   <div className='container'>
+    <Authorization />
     <Post itemList = {itemList}/>
   </div>
 );

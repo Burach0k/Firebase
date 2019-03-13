@@ -10,4 +10,9 @@ const config = {
 };
 const fb = firebase.initializeApp(config);
 
-export default fb;
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+export default {
+  auth: () =>  fb.auth().signInWithPopup(provider),
+};
