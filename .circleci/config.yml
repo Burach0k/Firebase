@@ -11,10 +11,8 @@ setRestore: &setRestore
 
 version: 2
 jobs:
-    <<: *setImage
-
   save_cache:
-    # <<: *setImage
+    <<: *setImage
     steps:
       - checkout
 
@@ -29,7 +27,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
   test:
-    # <<: *setImage
+    <<: *setImage
     steps:
       - checkout
 
@@ -40,7 +38,7 @@ jobs:
           command: yarn test
 
   build:
-    # <<: *setImage
+    <<: *setImage
     steps:
       - checkout
 
