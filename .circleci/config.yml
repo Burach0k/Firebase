@@ -81,7 +81,7 @@ workflows:
           requires:
             - save_cache
       - deploy:
-          context: firebase-task
+          context: firebase
           requires:
             - build
             - test
