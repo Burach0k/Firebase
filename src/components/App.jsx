@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.scss';
 import Post from './controlls/Post/Post';
+import firebase from './firebase'
+
 let itemList = [
   {
     name: 'I love tyan',
