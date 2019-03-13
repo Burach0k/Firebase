@@ -53,21 +53,21 @@ jobs:
           root: ~/repo
           paths: build
 
-  # deploy:
-  #   <<: *setImage
-  #   steps:
-  #     - checkout
-  #     - <<: *setRestore
-  #     - attach_workspace:
-  #         at: ~/repo
-  #     - store_artifacts:
-  #         path: ./build/
-  #     - run: # test what token.
-  #         name: "What token?"
-  #         command: echo $FIREBASE_TOKEN
-  #     - run:
-  #         name: Deploy to Firebase hosting
-  #         command: ./node_modules/.bin/firebase deploy --only hosting --token $FIREBASE_TOKEN
+  deploy:
+    <<: *setImage
+    steps:
+      - checkout
+      - <<: *setRestore
+      - attach_workspace:
+          at: ~/repo
+      - store_artifacts:
+          path: ./build/
+      - run: # test what token.
+          name: "What token?"
+          command: echo $FIREBASE_TOKEN
+      - run:
+          name: Deploy to Firebase hosting
+          command: ./node_modules/.bin/firebase deploy --only hosting --token $FIREBASE_TOKEN
 
 workflows:
   version: 2
@@ -80,11 +80,11 @@ workflows:
       - build:
           requires:
             - save_cache
-      # - deploy:
-      #     context: firebase-task
-      #     requires:
-      #       - build
-      #       - test
-      #     filters:
-      #           branches:
-      #             only: master
+      - deploy:
+          context: firebase-task
+          requires:
+            - build
+            - test
+          filters:
+                branches:
+                  only: master
