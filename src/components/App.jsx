@@ -1,7 +1,12 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './redux/CreateStore';
 import './App.scss';
 import Post from './controlls/Post/Post';
-import Authorization from './controlls/Authorization/Authorization'
+import Authorization from './controlls/Authorization/Authorization';
+import DropPost from './controlls/DropPost/DropPost';
+import { setYear } from './redux/action'
+
 
 let itemList = [
   {
@@ -32,12 +37,16 @@ let itemList = [
     isUrl: true,
     info: { like: 10, repost: 0, view: 1 },
   },
-  
 ];
 const App = () => (
   <div className='container'>
     <Authorization />
-    <Post itemList = {itemList}/>
+    <Provider store={store}>
+      <DropPost setYear={setYear}/>
+      <Post />
+    </Provider>
   </div>
 );
+
+
 export default App;

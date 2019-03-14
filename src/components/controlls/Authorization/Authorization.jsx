@@ -17,7 +17,7 @@ class Authorization extends Component{
   }
 
   render(){
-    return <button id = "login" onClick = {this.login}>
+    return <button className = "login" onClick = {this.login}>
       {'sign in'}
     </button>
   }

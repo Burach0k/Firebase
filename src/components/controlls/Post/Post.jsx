@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Public from '../../views/Public/Public';
 import Config from '../../views/Config/Config';
@@ -13,8 +14,8 @@ class Post extends Component {
   }
 
   render() {
-    let stena = this.props.itemList.map((val) => {
-     return <div className={'post'}>
+    let stena = this.props.items.map((val, index) => {
+     return <div key ={index}  className={'post'}>
         <Public name={val.name} iconUrl={val.iconUrl} />
         <Config />
         <News contain={val.contain} isUrl={val.isUrl} />
@@ -29,4 +30,14 @@ class Post extends Component {
 //   name: PropTypes.string.isRequired,
 // };
 
-export default Post;
+const mapStateToProps = store => {
+  console.log(store,'post')
+  return {
+    items: store.item,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Post)
