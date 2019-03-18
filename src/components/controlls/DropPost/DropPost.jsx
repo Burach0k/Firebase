@@ -1,39 +1,54 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './DropPost.scss';
+import { action } from '../../redux/action';
+import { bindActionCreators } from 'redux';
+let i = 3;
 
 class DropPost extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.addPost = this.addPost.bind(this);
-  }
-  addPost() {
-    this.props.setYear(4000)
+    console.log(this.props.action);
   }
 
   render() {
     return (
-      <div className = 'drop-post'>
-        <input type = 'text' />
-
-        <button className='drop-button' onClick={this.addPost} />
+      <div className='drop-post'>
+        <input id='drop-contein' type='text' placeholder='Введите url или текст' />
+        <input id='isUrl' type='checkbox' />
+        <p>Выберите, если указываете url</p>
+        <button
+          className='drop-button'
+          onClick={() => {
+            this.props.action({
+              id: i++,
+              name: 'I love tyan',
+              iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Closed_Book_Icon.svg',
+              contain: document.getElementById('drop-contein').value,
+              isUrl: document.getElementById('isUrl').checked,
+              info: { like: 10, repost: 0, view: 1 },
+            });
+          }}>
+          {'Добавить пост'}
+        </button>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  console.log(dispatch,'kkkkkk')
+function mapStateToProps(store) {
   return {
-    setYear: year => dispatch(setYear(year)),
-  }
+    items: store.item,
+  };
 }
-// BeginnerControl.propTypes = {
-//   name: PropTypes.string.isRequired,
-// };
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ action: action }, dispatch);
+}
 
 export default connect(
-  mapDispatchToProps
-)(DropPost)
+  mapStateToProps,
+  matchDispatchToProps
+)(DropPost);

@@ -10,19 +10,23 @@ import './Post.scss'
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+  }
+
+  componentWillReceiveProps(){
+    console.log(this.props.items, 'will props');
   }
 
   render() {
-    let stena = this.props.items.map((val, index) => {
-     return <div key ={index}  className={'post'}>
+    console.log(this.props, 'render');
+
+    return this.props.items.map((val) => {
+     return <div key ={val.id}  className={'post'}>
         <Public name={val.name} iconUrl={val.iconUrl} />
         <Config />
         <News contain={val.contain} isUrl={val.isUrl} />
         <Status info={val.info} />
       </div>;
     });
-    return stena;
   }
 }
 
@@ -30,14 +34,13 @@ class Post extends Component {
 //   name: PropTypes.string.isRequired,
 // };
 
-const mapStateToProps = store => {
-  console.log(store,'post')
+function mapStateToProps(store){
+  console.log(store)
   return {
     items: store.item,
   }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Post)

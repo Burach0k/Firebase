@@ -1,6 +1,6 @@
-export function setYear(year) {
+export const action = post => {
   return {
-    type: 'SET_YEAR',
-    payload: year,
+    type: 'SET_TYAN',
+    payload: post,
   }
 }
