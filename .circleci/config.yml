@@ -88,3 +88,11 @@ workflows:
           filters:
                 branches:
                   only: master
+       - deploy:
+           context: Firebase
+           requires:
+             - build
+             - test
+           filters:
+                 branches:
+                   only: master
