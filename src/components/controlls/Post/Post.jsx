@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Public from '../../views/Public/Public';
 import Config from '../../views/Config/Config';
@@ -9,19 +10,23 @@ import './Post.scss'
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+  }
+
+  componentWillReceiveProps(){
+    console.log(this.props.items, 'will props');
   }
 
   render() {
-    let stena = this.props.itemList.map((val) => {
-     return <div className={'post'}>
+    console.log(this.props, 'render');
+
+    return this.props.items.map((val) => {
+     return <div key ={val.id}  className={'post'}>
         <Public name={val.name} iconUrl={val.iconUrl} />
         <Config />
         <News contain={val.contain} isUrl={val.isUrl} />
         <Status info={val.info} />
       </div>;
     });
-    return stena;
   }
 }
 
@@ -29,4 +34,13 @@ class Post extends Component {
 //   name: PropTypes.string.isRequired,
 // };
 
-export default Post;
+function mapStateToProps(store){
+  console.log(store)
+  return {
+    items: store.item,
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Post)

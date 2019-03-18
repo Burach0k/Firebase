@@ -4,4 +4,8 @@ service cloud.firestore {
       allow read, write;
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Doc: add firebase documents
